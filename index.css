@@ -1,5 +1,7 @@
 input {
   margin-bottom: 12px;
+  padding: 5px 5px;
+  width: 142px;
 }
 
 body, html {
@@ -20,6 +22,7 @@ h1 {
 
 h2 {
   margin-top: 0;
+  margin-bottom: 9px;
 }
 
 button {
