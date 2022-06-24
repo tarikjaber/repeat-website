@@ -2,6 +2,43 @@ input {
   margin-bottom: 12px;
 }
 
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+.timerBody {
+  padding: 30px;
+}
+
+h1 {
+  background-color: black;
+  color: white;
+  margin: 0;
+  padding: 30px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+button {
+  border-width: 0;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: white;
+}
+
 #play {
   margin-left: 10px;
+  background-color: forestgreen;
+}
+
+#pause {
+  background-color: indianred;
+}
+
+
+body {
+  font-family: 'Roboto', sans-serif;
 }
