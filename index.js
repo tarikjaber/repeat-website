@@ -1,5 +1,7 @@
 var repeatInterval = prompt("Enter repeat interval (minutes): ")
 
+var audio = new Audio('ding.mp3');
+
 var args = repeatInterval.split(" ");
 var repeatTimeSeconds;
 var isPaused = false;
@@ -18,8 +20,8 @@ setInterval(function () {
     if (!isPaused) {
         secondsPassed++;
         if (secondsPassed == repeatTimeSeconds) {
-            console.log("Repeat!");
             secondsPassed = 0;
+            audio.play();
         }
         var secondsLeft = repeatTimeSeconds - secondsPassed;
         var minutesLeft = Math.floor(secondsLeft / 60);
@@ -27,7 +29,6 @@ setInterval(function () {
         var minutesString = String(minutesLeft).padStart(2, '0');
         var secondsString = String(secondsLeft).padStart(2, '0');
         document.title = `${minutesString}:${secondsString}`;
-        console.log(`${minutesString}:${secondsString}`);
     }
 }, 1000);
 
