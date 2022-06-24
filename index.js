@@ -1,18 +1,10 @@
-let repeatInterval = prompt("Enter repeat interval (minutes): ")
+let timeInputBox = document.getElementById("timeInput")
+let lastTimeInput = ""
 
 let audio = new Audio('ding.mp3');
 
-let args = repeatInterval.split(" ");
 let repeatTimeSeconds;
-let isPaused = false;
-
-if (args.length == 2) {
-    repeatTimeSeconds = parseInt(args[0]) * 60 + parseInt(args[1]);
-} else {
-    repeatTimeSeconds = parseInt(args[0]) * 60;
-}
-
-console.log(repeatTimeSeconds);
+let isPaused = true;
 
 let secondsPassed = 0;
 
@@ -41,5 +33,28 @@ pauseButton.addEventListener('click', function (e) {
 });
 
 playButton.addEventListener('click', function (e) {
-    isPaused = false;
+    handle_play();
 });
+
+timeInputBox.addEventListener('keyup', function (e) {
+    if (e.key == 'Enter') {
+        handle_play();
+    }
+})
+
+// Play functionality
+function handle_play() {
+    let input = timeInputBox.value;
+    if (input.value != lastTimeInput) {
+        let args = input.split(" ");
+
+        if (args.length == 2) {
+            repeatTimeSeconds = parseInt(args[0]) * 60 + parseInt(args[1]);
+        } else {
+            repeatTimeSeconds = parseInt(args[0]) * 60;
+        }
+        lastTimeInput = input;
+    }
+
+    isPaused = false;
+}
