@@ -32,9 +32,13 @@ button {
   color: white;
 }
 
+button:active {
+  transform: scale(0.9375);
+}
+
 #play {
   margin-left: 10px;
-  background-color: forestgreen;
+  background-color: seagreen;
 }
 
 #pause {
