@@ -11,6 +11,8 @@ let isPaused = true;
 let secondsPassed = 0;
 
 let permission;
+
+/* ----------------- Handling Permissions for Notifications ----------------- */
 async function handlePermissions() {
     permission = await Notification.requestPermission();
     console.log(permission);
@@ -18,6 +20,7 @@ async function handlePermissions() {
 
 handlePermissions();
 
+/* ---------------------------------- Timer --------------------------------- */
 setInterval(function () {
     if (!isPaused) {
         secondsPassed++;
@@ -42,25 +45,33 @@ setInterval(function () {
     }
 }, 1000);
 
-// Buttons
-let pauseButton = document.getElementById("pause");
-let playButton = document.getElementById("play");
+/* --------------------------------- Buttons -------------------------------- */
+let button = document.getElementsByTagName("button")[0];
 
-pauseButton.addEventListener('click', function (e) {
-    isPaused = true;
+button.addEventListener("click", function (e) {
+    if (isPaused) {
+        // Play
+        button.classList.remove("play");
+        button.classList.add("pause");
+        button.innerText = "Pause";
+        handle_play();
+    } else {
+        // Pause
+        button.classList.remove("pause");
+        button.classList.add("play");
+        button.innerText = "Play";
+        isPaused = true;
+    }
 });
 
-playButton.addEventListener('click', function (e) {
-    handle_play();
-});
-
+/* -------------------------- Time Input Box Enter -------------------------- */
 timeInputBox.addEventListener('keyup', function (e) {
     if (e.key == 'Enter') {
         handle_play();
     }
 })
 
-// Play functionality
+/* --------------------------- Play Functionality --------------------------- */
 function handle_play() {
     let input = timeInputBox.value;
 

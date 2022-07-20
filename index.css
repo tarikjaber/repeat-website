@@ -30,18 +30,18 @@ button {
   border-radius: 5px;
   padding: 10px 20px;
   color: white;
+  width: 156px;
 }
 
 button:active {
-  transform: scale(0.9375);
+  transform: scale(0.95);
 }
 
-#play {
-  margin-left: 10px;
-  background-color: seagreen;
+.play {
+  background-color: forestgreen;
 }
 
-#pause {
+.pause {
   background-color: indianred;
 }
 
