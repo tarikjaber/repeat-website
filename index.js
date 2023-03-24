@@ -12,6 +12,18 @@ let secondsPassed = 0;
 
 let permission;
 
+timeInputBox.focus()
+
+window.addEventListener('load', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const intervalParam = urlParams.get('interval');
+    console.log(intervalParam)
+    if (intervalParam !== null) {
+        timeInputBox.value = intervalParam;
+        play();
+    }
+})
+
 /* ----------------- Handling Permissions for Notifications ----------------- */
 async function handlePermissions() {
     permission = await Notification.requestPermission();
@@ -21,18 +33,23 @@ async function handlePermissions() {
 handlePermissions();
 
 /* ---------------------------------- Timer --------------------------------- */
+function notification() {
+    audio.play();
+    if (permission == "granted") {
+        new Notification("Interval Finished!");
+    } else {
+        console.log("Permission status: " + permission);
+        console.log("Notification not allowed");
+    }
+}
+
+
 setInterval(function () {
     if (!isPaused) {
         secondsPassed++;
         if (secondsPassed == repeatTimeSeconds) {
             secondsPassed = 0;
-            audio.play();
-            if (permission == "granted") {
-                let notification = new Notification("Interval Finished!");
-            } else {
-                console.log("Permission status: " + permission);
-                console.log("Notification not allowed");
-            }
+            notification();
         }
         secondsLeft = repeatTimeSeconds - secondsPassed;
         let minutesLeft = Math.floor(secondsLeft / 60);
@@ -45,29 +62,46 @@ setInterval(function () {
     }
 }, 1000);
 
+function pause() {
+    button.classList.remove("pause");
+    button.classList.add("play");
+    button.innerText = "Play";
+    isPaused = true;
+}
+
+function play() {
+    button.classList.remove("play");
+    button.classList.add("pause");
+    button.innerText = "Pause";
+    handle_play();
+    isPaused = false;
+}
+
+function toggle() {
+    if (timeInputBox.value == "") {
+        alert("Please enter a valid interval.")
+        return;
+    }
+    if (isPaused) {
+        play()
+    } else {
+        pause()
+    }
+}
+
 /* --------------------------------- Buttons -------------------------------- */
 let button = document.getElementsByTagName("button")[0];
 
 button.addEventListener("click", function (e) {
-    if (isPaused) {
-        // Play
-        button.classList.remove("play");
-        button.classList.add("pause");
-        button.innerText = "Pause";
-        handle_play();
-    } else {
-        // Pause
-        button.classList.remove("pause");
-        button.classList.add("play");
-        button.innerText = "Play";
-        isPaused = true;
-    }
+    toggle()
 });
 
 /* -------------------------- Time Input Box Enter -------------------------- */
 timeInputBox.addEventListener('keyup', function (e) {
     if (e.key == 'Enter') {
-        handle_play();
+        toggle()
+    } else {
+        pause()
     }
 })
 
@@ -76,16 +110,25 @@ function handle_play() {
     let input = timeInputBox.value;
 
     if (input != lastTimeInput) {
-        secondsPassed = 0;
-        let args = input.split(" ");
+        let paddedInput = input.padStart(4, '0');
 
-        if (args.length == 2) {
-            repeatTimeSeconds = parseInt(args[0]) * 60 + parseInt(args[1]);
-        } else {
-            repeatTimeSeconds = parseInt(args[0]) * 60;
+        let minutes = paddedInput.slice(0, 2);
+        let seconds = paddedInput.slice(2, 4);
+
+
+        newInterval = Number(minutes) * 60 + Number(seconds);
+
+        if (newInterval > 6000) {
+            newInterval = 6000;
         }
+
+        if (newInterval > 0) {
+            secondsPassed = 0;
+            repeatTimeSeconds = newInterval;
+        } else {
+            alert("An interval of 0 seconds is not allowed. Please enter a valid interval.")
+        }
+
         lastTimeInput = input;
     }
-
-    isPaused = false;
 }
