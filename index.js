@@ -17,8 +17,7 @@ timeInputBox.focus()
 window.addEventListener('load', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const intervalParam = urlParams.get('interval');
-    console.log(intervalParam)
-    if (intervalParam !== null) {
+    if (intervalParam !== null && !isNaN(intervalParam)) {
         timeInputBox.value = intervalParam;
         play();
     }
