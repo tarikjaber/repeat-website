@@ -2,26 +2,34 @@ input {
   margin-bottom: 12px;
   padding: 5px 5px;
   width: 142px;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-body, html {
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   padding: 0;
 }
 
 .timerBody {
   padding: 30px;
-}
-
-h1 {
-  background-color: black;
-  color: white;
-  margin: 0;
-  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 70px;
 }
 
 h2 {
   margin-top: 0;
+  font-size: 150px;
   margin-bottom: 9px;
 }
 
