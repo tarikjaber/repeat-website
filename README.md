@@ -1,5 +1,5 @@
 # Repeat Website
-![Demonstration](demonstration.gif)
+![Demonstration](demonstration.mp4)
 
 A website to type an interval to repeat and get notifications when intervals are done.
 
