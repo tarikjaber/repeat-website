@@ -108,26 +108,24 @@ timeInputBox.addEventListener('keyup', function (e) {
 function handle_play() {
     let input = timeInputBox.value;
 
-    if (input != lastTimeInput) {
-        let paddedInput = input.padStart(4, '0');
+    let paddedInput = input.padStart(4, '0');
 
-        let minutes = paddedInput.slice(0, 2);
-        let seconds = paddedInput.slice(2, 4);
+    let minutes = paddedInput.slice(0, 2);
+    let seconds = paddedInput.slice(2, 4);
 
 
-        newInterval = Number(minutes) * 60 + Number(seconds);
+    newInterval = Number(minutes) * 60 + Number(seconds);
 
-        if (newInterval > 6000) {
-            newInterval = 6000;
-        }
-
-        if (newInterval > 0) {
-            secondsPassed = 0;
-            repeatTimeSeconds = newInterval;
-        } else {
-            alert("An interval of 0 seconds is not allowed. Please enter a valid interval.")
-        }
-
-        lastTimeInput = input;
+    if (newInterval > 6000) {
+        newInterval = 6000;
     }
+
+    if (newInterval > 0) {
+        secondsPassed = 0;
+        repeatTimeSeconds = newInterval;
+    } else {
+        alert("An interval of 0 seconds is not allowed. Please enter a valid interval.")
+    }
+
+    lastTimeInput = input;
 }
